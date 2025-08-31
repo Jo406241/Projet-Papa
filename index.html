@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>MATÉRIAUX PRO - Vente de sable, gravier, concassé | Transport par camion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ff6b35;
+            --accent: #00d4aa;
+            --text: #ffffff;
+            --text-dark: #1a1a1a;
+            --gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --shadow: 0 10px 30px rgba(0,0,0,0.2);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        input, textarea, select {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        /* Header avec Carrousel */
+        .header-carousel {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .carousel-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .carousel-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #ff6b35 50%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 107, 53, 0.5);
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.9));
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .carousel-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .carousel-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .carousel-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .carousel-btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .carousel-btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-btn-secondary:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Navigation du carrousel */
+        .carousel-nav {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .carousel-dot.active {
+            background: var(--secondary);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+
+
+        /* Bouton WhatsApp Flottant */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            color: white;
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #25D366;
+            animation: ripple 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.8);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Header Mobile-First */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid rgba(255, 107, 53, 0.5);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+        }
+
+        .header-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #ff6b35 50%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 107, 53, 0.5);
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.9));
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+            position: relative;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-nav {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 250px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            padding: 1rem 0;
+            pointer-events: none;
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-nav li {
+            margin: 0;
+        }
+
+        .mobile-nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav a:hover {
+            color: var(--secondary);
+            background: rgba(255, 107, 53, 0.1);
+            padding-left: 2rem;
+        }
+
+        .mobile-cta {
+            margin-top: 1rem;
+            padding: 0 1.5rem;
+        }
+
+        .mobile-cta .cta-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            display: block;
+            text-align: center;
+        }
+
+        .mobile-cta .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+
+
+        /* Services Section Mobile-First */
+        .services {
+            padding: 4rem 1rem;
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .services-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            line-height: 1.6;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* Stats Section Mobile-First */
+        .stats {
+            background: var(--gradient);
+            padding: 3rem 1rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+        }
+
+        /* Galerie Mobile-First */
+        .gallery {
+            background: #f8f9fa;
+            padding: 4rem 1rem;
+            color: var(--text-dark);
+        }
+
+        .gallery-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #e9ecef;
+            color: var(--text-dark);
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section Mobile-First */
+        .contact {
+            background: #ffffff;
+            color: var(--text-dark);
+            padding: 4rem 1rem;
+        }
+
+        .contact-container {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            width: 100%;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Footer Mobile-First */
+        footer {
+            background: var(--primary);
+            color: var(--text);
+            padding: 3rem 1rem 1rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        /* Modal Mobile-First */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            max-width: 95%;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 15px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #f1f1f1;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .close:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive pour très petits écrans */
+        @media (max-width: 480px) {
+            .whatsapp-button {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+            .carousel-title {
+                font-size: 1.8rem;
+                line-height: 1.3;
+                margin-bottom: 1rem;
+            }
+            
+            .carousel-subtitle {
+                font-size: 1rem;
+            }
+            
+            .carousel-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .carousel-btn {
+                min-width: 250px;
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .carousel-nav {
+                bottom: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title p {
+                font-size: 0.9rem;
+            }
+            
+            .service-card {
+                max-width: 320px;
+                padding: 1.2rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .service-card p {
+                font-size: 0.9rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                max-width: 260px;
+                padding: 0.9rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            .contact-form {
+                max-width: 100%;
+                padding: 1.2rem;
+            }
+            
+            .contact-info h3 {
+                font-size: 1.4rem;
+            }
+            
+            .contact-form h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Responsive pour tablettes et desktop */
+        @media (min-width: 768px) {
+            .carousel-title {
+                font-size: 3.5rem;
+                text-shadow: 0 0 50px rgba(255, 107, 53, 0.6);
+                filter: drop-shadow(0 6px 12px rgba(0,0,0,0.95));
+            }
+            
+            .carousel-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .carousel-content {
+                padding: 2.5rem;
+            }
+            
+            .header-container {
+                padding: 0 2rem;
+                height: 80px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                text-shadow: 0 0 50px rgba(255, 107, 53, 0.6);
+                filter: drop-shadow(0 6px 12px rgba(0,0,0,0.95));
+            }
+
+            .mobile-nav {
+                top: 80px;
+            }
+
+
+
+            .services {
+                padding: 5rem 2rem;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+                justify-items: center;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 3rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .contact-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            .footer-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                justify-items: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec Carrousel -->
+    <div class="header-carousel" id="accueil">
+        <div class="carousel-container">
+            <div class="carousel-slide" style="background-image: url('background1.jpg');">
+                <div class="carousel-content">
+                    <h1 class="carousel-title">Vos matériaux de construction livrés sur chantier</h1>
+                    <p class="carousel-subtitle">Leader dans la vente de sable, gravier, concassé et services de déblais/remblais. Transport professionnel par camion dans toute la région.</p>
+                    <div class="carousel-buttons">
+                        <a href="#contact" class="carousel-btn carousel-btn-primary">
+                            <i class="fas fa-truck"></i>
+                            Demander un devis
+                        </a>
+                        <a href="#services" class="carousel-btn carousel-btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Nos services
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('background2.jpg');">
+                <div class="carousel-content">
+                    <h1 class="carousel-title">Transport Express</h1>
+                    <p class="carousel-subtitle">Livraison rapide sur chantier avec notre flotte de camions bennes. Service 7j/7 pour les urgences.</p>
+                    <div class="carousel-buttons">
+                        <a href="#contact" class="carousel-btn carousel-btn-primary">
+                            <i class="fas fa-shipping-fast"></i>
+                            Devis Gratuit
+                        </a>
+                        <a href="#services" class="carousel-btn carousel-btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Nos services
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('background3.jpg');">
+                <div class="carousel-content">
+                    <h1 class="carousel-title">Conseil Technique</h1>
+                    <p class="carousel-subtitle">Accompagnement personnalisé pour le choix des matériaux. Devis détaillés et conseils d'experts.</p>
+                    <div class="carousel-buttons">
+                        <a href="#contact" class="carousel-btn carousel-btn-primary">
+                            <i class="fas fa-tools"></i>
+                            Demander un devis
+                        </a>
+                        <a href="#services" class="carousel-btn carousel-btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Nos services
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('pexels-minhle17vn-977213.jpg');">
+                <div class="carousel-content">
+                    <h1 class="carousel-title">Qualité Premium</h1>
+                    <p class="carousel-subtitle">Matériaux certifiés et contrôlés pour garantir la qualité de vos constructions et aménagements.</p>
+                    <div class="carousel-buttons">
+                        <a href="#contact" class="carousel-btn carousel-btn-primary">
+                            <i class="fas fa-award"></i>
+                            Demander un devis
+                        </a>
+                        <a href="#services" class="carousel-btn carousel-btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Nos services
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation du carrousel -->
+        <div class="carousel-nav">
+            <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+            <span class="carousel-dot" onclick="currentSlide(2)"></span>
+            <span class="carousel-dot" onclick="currentSlide(3)"></span>
+            <span class="carousel-dot" onclick="currentSlide(4)"></span>
+        </div>
+        
+
+    </div>
+
+    <!-- Header fixe -->
+    <header>
+        <div class="header-container">
+            <div class="logo">MATÉRIAUX PRO</div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Navigation Mobile -->
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#stats">Chiffres</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-cta">
+                <a href="#contact" class="cta-btn">Devis Gratuit</a>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="section-title">
+                <h2>Nos Services Premium</h2>
+                <p>Une gamme complète de matériaux de construction et services de transport professionnels</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>Sable de Qualité</h3>
+                    <p>Sable fin, sable de rivière, sable de carrière. Différentes granulométries pour tous vos travaux de maçonnerie et construction.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Gravier & Concassé</h3>
+                    <p>Gravier roulé, concassé calcaire, granulats pour béton. Matériaux certifiés pour vos fondations et aménagements.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck-pickup"></i>
+                    </div>
+                    <h3>Déblais & Remblayage</h3>
+                    <p>Services complets de terrassement : déblaiement de terrain, évacuation des déchets, remblayage avec matériaux adaptés.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Transport Express</h3>
+                    <p>Livraison rapide sur chantier avec notre flotte de camions bennes. Service 7j/7 pour les urgences.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Conseil Technique</h3>
+                    <p>Accompagnement personnalisé pour le choix des matériaux. Devis détaillés et conseils d'experts.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Service 24/7</h3>
+                    <p>Disponibilité permanente pour les chantiers urgents. Réactivité garantie pour tous vos projets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Chantiers livrés</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Camions disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24h</div>
+                <div class="stat-label">Délai de livraison</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Satisfaction client</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Photos Section -->
+    <section class="gallery" id="galerie">
+        <div class="gallery-container">
+            <div class="section-title">
+                <h2>Nos Réalisations</h2>
+                <p>Découvrez nos chantiers, notre flotte de camions et la qualité de nos matériaux</p>
+            </div>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Tout</button>
+                <button class="filter-btn" data-filter="chantiers">Chantiers</button>
+                <button class="filter-btn" data-filter="camions">Camions</button>
+                <button class="filter-btn" data-filter="materiaux">Matériaux</button>
+                <button class="filter-btn" data-filter="livraisons">Livraisons</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="chantiers">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Chantier de construction">
+                    <div class="gallery-overlay">
+                        <h3>Chantier Résidentiel</h3>
+                        <p>Livraison de sable et gravier pour fondations</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="camions">
+                    <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Camion de transport">
+                    <div class="gallery-overlay">
+                        <h3>Flotte de Camions</h3>
+                        <p>Transport professionnel sur tous terrains</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="materiaux">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Matériaux de construction">
+                    <div class="gallery-overlay">
+                        <h3>Sable de Qualité</h3>
+                        <p>Différentes granulométries disponibles</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="livraisons">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Livraison sur chantier">
+                    <div class="gallery-overlay">
+                        <h3>Livraison Express</h3>
+                        <p>Service 24h pour les urgences</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="chantiers">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Terrassement">
+                    <div class="gallery-overlay">
+                        <h3>Terrassement</h3>
+                        <p>Services de déblais et remblais</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="materiaux">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gravier concassé">
+                    <div class="gallery-overlay">
+                        <h3>Gravier Concassé</h3>
+                        <p>Matériaux pour fondations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contactez-nous</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <strong>Adresse</strong><br>
+                        123 Avenue des Matériaux<br>
+                        75000 Paris, France
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <strong>Téléphone</strong><br>
+                        01 23 45 67 89<br>
+                        06 12 34 56 78
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <strong>Email</strong><br>
+                        contact@materiauxpro.fr<br>
+                        devis@materiauxpro.fr
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <strong>Horaires</strong><br>
+                        Lun-Ven: 7h-19h<br>
+                        Sam: 8h-17h | Dim: Sur RDV
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div>
+                        <strong>Zone d'intervention</strong><br>
+                        Rayon de 150km<br>
+                        Livraison express possible
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Demande de devis</h3>
+                <form id="devisForm">
+                    <div class="form-group">
+                        <label>Nom complet *</label>
+                        <input type="text" id="nom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Téléphone *</label>
+                        <input type="tel" id="telephone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Service souhaité *</label>
+                        <select id="service" required>
+                            <option value="">Sélectionnez un service</option>
+                            <option value="Sable">Sable</option>
+                            <option value="Gravier">Gravier</option>
+                            <option value="Concassé">Concassé</option>
+                            <option value="Déblais">Déblais</option>
+                            <option value="Remblayage">Remblayage</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Conseil technique">Conseil technique</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Quantité estimée</label>
+                        <input type="text" id="quantite" placeholder="Ex: 20m³, 5 tonnes...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Adresse de livraison</label>
+                        <textarea id="adresse" placeholder="Précisez l'adresse de livraison et accès au chantier"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        Envoyer sur WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>MATÉRIAUX PRO</h3>
+                <p>Votre partenaire de confiance pour tous vos projets de construction et d'aménagement. Qualité, rapidité et professionnalisme garantis.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Nos Services</h3>
+                <p>Vente de sable, gravier, concassé</p>
+                <p>Services de déblais et remblais</p>
+                <p>Transport par camion</p>
+                <p>Conseil technique</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Avenue des Matériaux</p>
+                <p>75000 Paris, France</p>
+                <p>01 23 45 67 89</p>
+                <p>contact@materiauxpro.fr</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Certifications</h3>
+                <p>ISO 9001 - Qualité</p>
+                <p>ISO 14001 - Environnement</p>
+                <p>Certification NF</p>
+                <p>Assurance professionnelle</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 MATÉRIAUX PRO - Tous droits réservés | Site créé avec passion</p>
+        </div>
+    </footer>
+
+    <!-- Bouton WhatsApp Flottant -->
+    <a href="https://wa.me/22997925922?text=Bonjour%20!%20Je%20souhaite%20obtenir%20un%20devis%20pour%20mes%20matériaux%20de%20construction." 
+       class="whatsapp-button" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Contactez-nous sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Modal pour agrandir les photos -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Carrousel
+        let slideIndex = 0;
+        let slideInterval;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function showSlides(n) {
+            let i;
+            
+            // Gestion des indices avec boucle
+            if (n >= slides.length) {
+                slideIndex = 0;
+            } else if (n < 0) {
+                slideIndex = slides.length - 1;
+            } else {
+                slideIndex = n;
+            }
+            
+            // Masquer toutes les slides
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            // Désactiver tous les dots
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            
+            // Afficher la slide actuelle
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            showSlides(n - 1);
+            startAutoSlide();
+        }
+
+        function autoSlide() {
+            showSlides(slideIndex + 1);
+        }
+
+        function startAutoSlide() {
+            slideInterval = setInterval(autoSlide, 5000);
+        }
+
+        // Initialisation du carrousel
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher la première slide
+            showSlides(0);
+            // Démarrer le défilement automatique
+            startAutoSlide();
+        });
+
+        // Menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+
+            if (mobileMenuToggle && mobileNav) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    mobileNav.classList.toggle('active');
+                    // Ne pas bloquer le scroll pour éviter les plantages
+                    // document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+                });
+
+                // Fermer le menu mobile en cliquant sur un lien
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileNav.classList.remove('active');
+                        // document.body.style.overflow = '';
+                    });
+                });
+
+                // Fermer le menu mobile en cliquant en dehors
+                document.addEventListener('click', function(e) {
+                    if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileNav.classList.remove('active');
+                        // document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+
+        // Smooth scroll pour les liens
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation des stats
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '') + (stat.textContent.includes('%') ? '%' : '') + (stat.textContent.includes('h') ? 'h' : '');
+                }, 30);
+            });
+        }
+
+        // Déclencher l'animation des stats quand la section est visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Form submission vers WhatsApp
+        document.getElementById('devisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupérer les valeurs du formulaire
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            const telephone = document.getElementById('telephone').value;
+            const service = document.getElementById('service').value;
+            const quantite = document.getElementById('quantite').value;
+            const adresse = document.getElementById('adresse').value;
+            
+            // Construire le message WhatsApp
+            let message = `*NOUVELLE DEMANDE DE DEVIS*%0A%0A`;
+            message += `*Nom:* ${nom}%0A`;
+            message += `*Email:* ${email}%0A`;
+            message += `*Téléphone:* ${telephone}%0A`;
+            message += `*Service souhaité:* ${service}%0A`;
+            
+            if (quantite) {
+                message += `*Quantité estimée:* ${quantite}%0A`;
+            }
+            
+            if (adresse) {
+                message += `*Adresse de livraison:* ${adresse}%0A`;
+            }
+            
+            message += `%0A*Merci de nous recontacter rapidement !*`;
+            
+            // Rediriger vers WhatsApp
+            const whatsappUrl = `https://wa.me/22997925922?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Galerie avec filtres
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeInUp 0.6s ease-out';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal pour agrandir les photos
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.close');
+
+        // Ouvrir le modal en cliquant sur une image
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                modal.style.display = 'block';
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+            });
+        });
+
+        // Fermer le modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Fermer le modal en cliquant en dehors
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Fermer le modal avec la touche Echap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Optimisations pour mobile
+        // Améliorer le scroll sur mobile
+        let isScrolling = false;
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }
+        }, { passive: true });
+
+        // Prévenir le zoom sur les inputs
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+
+        // Pause du carrousel au survol (optionnel)
+        const carousel = document.querySelector('.header-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                }
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                if (!slideInterval) {
+                    startAutoSlide();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
